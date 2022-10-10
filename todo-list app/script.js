@@ -11,11 +11,14 @@ const pageReload = () => {
 	window.location.reload();
 };
 
-//Get todoDB from local storage
-const todoDB = 'db101';
+const addBtn = document.querySelector('.add-btn');
+const editBtn = document.querySelector('.edit-btn');
+
+//Get todoDBName from local storage
+const todoDBName = 'db101';
 
 //reading from the local storage
-const todoDBInstance = JSON.parse(localStorage.getItem(todoDB)) || [];
+const todoDBInstance = JSON.parse(localStorage.getItem(todoDBName)) || [];
 
 /* Create function */
 const addTodo = () => {
@@ -29,7 +32,7 @@ const addTodo = () => {
 	};
 
 	const updatedTodoDB = [...todoDBInstance, newTodo];
-	localStorage.setItem(todoDB, JSON.stringify(updatedTodoDB));
+	localStorage.setItem(todoDBName, JSON.stringify(updatedTodoDB));
 	pageReload();
 };
 
@@ -40,6 +43,7 @@ const renderTodoItems = () => {
 		.map(({ _id, title, isCompleted }) => {
 			return `
 		<li class=${isCompleted && 'checked'}>${title} 
+		<span class="btn-complete utility-btn" onclick="completedStatus(${_id})">✅</span>
 		<span class="edit-icon utility-btn" onclick="editMode(${_id})">✍🏼</span>
 		<span class="btn-delete utility-btn" onclick="deleteTodo(${_id})">🗑</span>
 		</li>
@@ -47,28 +51,46 @@ const renderTodoItems = () => {
 		})
 		.join('');
 	todoListContainer.innerHTML = todoListItems;
-	console.log(todoListContainer);
 };
 
 /* Delete function */
 function deleteTodo(todoId) {
 	//to delete, use the filter method to remove
 	const updatedTodoDB = todoDBInstance.filter(({ _id }) => _id !== todoId);
-	localStorage.setItem(todoDB, JSON.stringify(updatedTodoDB));
+	localStorage.setItem(todoDBName, JSON.stringify(updatedTodoDB));
 	pageReload();
 }
 
-//TODO: Edit function
-const editMode = (id) => {
-	const todo = todoDBInstance.find((todo) => todo._id === id);
-	// document.getElementById.("todo-input").value
-	console.log(todo);
+/*Edit function*/
+const editMode = (_id) => {
+	const todo = todoDBInstance.find((todo) => todo._id === _id);
+	document.getElementById('todo-input').value = todo.title;
+	addBtn.style.display = 'none';
+	editBtn.style.display = 'inline-block';
+	editBtn.setAttribute('id', _id);
 };
-//2. Display the todo to be edited in the input box
-//3. Display the update button
+
+/*Update function*/
+function updateTodoListTitle() {
+	const { id } = this;
+	const _id = parseInt(id); //alias
+	const todoToUpdate = todoDBInstance.find((todo) => todo._id === _id);
+	todoToUpdate.title = document.getElementById('todo-input').value;
+
+	const updatedTodoDB = todoDBInstance.map((todo) =>
+		todo._id === _id ? todoToUpdate : todo
+	);
+
+	localStorage.setItem(todoDBName, JSON.stringify(updatedTodoDB));
+
+	pageReload();
+}
+
+/* Completed Status */
 
 //Event Listeners
-document.querySelector('#add-btn').addEventListener('click', addTodo);
+addBtn.addEventListener('click', addTodo);
+editBtn.addEventListener('click', updateTodoListTitle);
 
 //invoke on page load
 renderTodoItems();

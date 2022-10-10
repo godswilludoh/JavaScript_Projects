@@ -40,7 +40,7 @@ h2 {
 
 input {
 	outline: none;
-	width: 90%;
+	width: 75%;
 	height: 3rem;
 	border: 1px solid #ccc;
 	margin: 1rem 0 1rem 1rem;
@@ -54,7 +54,7 @@ button {
 	border: none;
 }
 
-#add-btn {
+.add-btn {
 	color: #fff;
 	background: rgb(69, 176, 252) 100%;
 	cursor: pointer;
@@ -63,8 +63,22 @@ button {
 	font-weight: 700;
 }
 
-#add-btn:hover {
+.add-btn:hover {
 	background: rgba(29, 223, 253, 0.617) 50%;
+}
+
+.edit-btn {
+	display: none;
+	color: #eee;
+	background: rgba(29, 223, 253, 0.617) 50%;
+	cursor: pointer;
+	margin: 1rem auto;
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.edit-btn:hover {
+	background: rgb(69, 176, 252) 100%;
 }
 
 ul {
@@ -126,5 +140,17 @@ ul li.checked::before {
 
 .edit-icon:hover {
 	background-color: rgb(71, 203, 255);
+	color: white;
+}
+
+.btn-complete {
+	position: absolute;
+	right: 100px;
+	top: 0;
+	padding: 12px 20px 16px 20px;
+}
+
+.btn-complete:hover {
+	background-color: rgb(86, 255, 71);
 	color: white;
 }
