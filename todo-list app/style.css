@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;600;800&family=Roboto+Mono:wght@400;600;700&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.container {
+	min-width: 100vw;
+}
+
+.title-container {
+	font-family: 'Montserrat Alternates', sans-serif;
+	background: linear-gradient(
+		90deg,
+		rgb(180, 58, 58) 0%,
+		rgba(29, 223, 253, 0.617) 50%,
+		rgb(69, 176, 252) 100%
+	);
+	padding: 10px 40px;
+}
+
+h1 {
+	color: #fefefe;
+	padding: 20px 40px;
+	font-size: 40px;
+}
+
+.content {
+	margin: 2rem 5rem;
+	border: 2px solid #ccc;
+	border-radius: 5px;
+}
+
+h2 {
+	font-size: 30px;
+	margin: 1rem;
+}
+
+input {
+	outline: none;
+	width: 90%;
+	height: 3rem;
+	border: 1px solid #ccc;
+	margin: 1rem 0 1rem 1rem;
+	padding: 1rem;
+	font-size: 16px;
+}
+
+button {
+	display: inline-block;
+	padding: 0.9rem 1.5rem;
+	border: none;
+}
+
+#add-btn {
+	color: #fff;
+	background: rgb(69, 176, 252) 100%;
+	cursor: pointer;
+	margin: 1rem auto;
+	font-size: 16px;
+	font-weight: 700;
+}
+
+#add-btn:hover {
+	background: rgba(29, 223, 253, 0.617) 50%;
+}
+
+ul {
+	position: relative;
+}
+
+ul li {
+	cursor: pointer;
+	position: relative;
+	padding: 16px 20px;
+	background: #b2bec3;
+	font-size: 20px;
+	list-style: none;
+}
+
+ul li:nth-child(odd) {
+	background: #eee;
+}
+
+ul li.checked {
+	background: #888;
+	color: #fff;
+	text-decoration: line-through;
+}
+
+ul li.checked::before {
+	content: '';
+	position: absolute;
+	border-color: #fff;
+	border-style: solid;
+	border-width: 0 2px 2px 0;
+	top: 10px;
+	left: 16px;
+	transform: rotate(45deg);
+	height: 15px;
+	width: 7px;
+}
+
+.btn-delete {
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 12px 16px 16px 16px;
+	color: #000;
+}
+
+.btn-delete:hover {
+	background-color: #ff4747;
+	color: white;
+}
+
+/* Style the edit button */
+.edit-icon {
+	position: absolute;
+	right: 50px;
+	top: 0;
+	padding: 12px 16px 16px 16px;
+}
+
+.edit-icon:hover {
+	background-color: rgb(71, 203, 255);
+	color: white;
+}
