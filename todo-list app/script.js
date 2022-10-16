@@ -11,6 +11,10 @@ const pageReload = () => {
 	window.location.reload();
 };
 
+// function uuid4() {
+// 	return ([1e7] + -1e3 + -4e3 + )
+// }
+
 const addBtn = document.querySelector('.add-btn');
 const editBtn = document.querySelector('.edit-btn');
 
@@ -36,6 +40,10 @@ const addTodo = () => {
 	pageReload();
 };
 
+let checked = document.getElementsByTagName('span');
+checked.innerHTML;
+console.log(checked);
+
 /* Render function */
 const renderTodoItems = () => {
 	const todoListContainer = document.querySelector('#todo-list-container');
@@ -43,7 +51,9 @@ const renderTodoItems = () => {
 		.map(({ _id, title, isCompleted }) => {
 			return `
 		<li class=${isCompleted && 'checked'}>${title} 
-		<span class="btn-complete utility-btn" onclick="completedStatus(${_id})">✅</span>
+		<span class="btn-complete utility-btn" id="btn-complete" onclick="completedStatus(${_id})">${
+				isCompleted ? '❌' : '✅'
+			}</span>
 		<span class="edit-icon utility-btn" onclick="editMode(${_id})">✍🏼</span>
 		<span class="btn-delete utility-btn" onclick="deleteTodo(${_id})">🗑</span>
 		</li>
@@ -87,7 +97,31 @@ function updateTodoListTitle() {
 }
 
 /* Completed Status */
+const completedStatus = (_id) => {
+	const todoCompleted = todoDBInstance.find((todo) => todo._id === _id);
 
+	todoCompleted.isCompleted === false
+		? (todoCompleted.isCompleted = true)
+		: (todoCompleted.isCompleted = false);
+
+	let clickedTodo = todoDBInstance.map((todo) =>
+		todo._id === _id ? todoCompleted : todo
+	);
+	localStorage.setItem(todoDBName, JSON.stringify(clickedTodo));
+	renderTodoItems();
+};
+
+// function checkedState(_id) {
+// 	let list = document.querySelector('ul');
+// 	list.addEventListener('click', function (e) {
+// 		console.log(e.target);
+
+// 		const todoCompleted = todoDBInstance.find((todo) => todo._id === _id);
+// 		todoCompleted.isCompleted === false
+// 			? (e.target.textContent = '✅')
+// 			: (e.target.textContent = '❌');
+// 	});
+// }
 //Event Listeners
 addBtn.addEventListener('click', addTodo);
 editBtn.addEventListener('click', updateTodoListTitle);
